@@ -1,3 +1,46 @@
+// Declaration of pokemon array with each object
+let pokemonRepository = (function () {
+  let pokemonList = [
+    {
+      name: "Bulbasaur",
+      height: 0.7,          // in m
+      types: ['grass', 'poison']  // array of strings
+    },
+    {
+      name: "Charizard",
+      height: 1.7,
+      types: ['fire', 'flying']
+
+    },
+    {
+      name: "Butterfree",
+      height: 1.1,
+      types: ['bug', 'flying']
+
+    }
+  ];
+  function add(pokemon) {
+    pokemonList.push(pokemon);
+  }
+
+  function getAll() {
+    return pokemonList;
+  }
+
+  return {
+    add: add,
+    getAll: getAll
+  };
+})();
+
+
+
+
+
+
+
+
+
 let pokemonList = []; // Declaraing empty array-will be used to store pokemon data
 
 //Adding 3 elements to arraty(pokemons of type object)
