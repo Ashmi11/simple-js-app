@@ -27,23 +27,48 @@ let pokemonRepository = (function () {
     return pokemonList;
   }
 
+  // Function to show Pokémon details
+  function showDetails(pokemon) {
+    console.log(pokemon);
+  }
+
+  // Function to add event listener separately 
+  function addEventListenerToButton(button, pokemon) {
+    button.addEventListener("click", function () {
+      showDetails(pokemon);
+    });
+  }
+
+  function addListItem(pokemon) {
+    let pokemonListElement = document.querySelector(".pokemon-list"); // Select <ul>
+
+    let listItem = document.createElement("li"); // Create list item
+    let button = document.createElement("button"); // Create button
+
+    button.innerText = pokemon.name; // Set button text
+    button.classList.add("pokemon-button"); // Add class for styling
+
+    button.addEventListener("click", function () {
+      console.log(pokemon.name); // Log Pokémon name on click
+    });
+
+    listItem.appendChild(button); // Append button to list item
+    pokemonListElement.appendChild(listItem); // Append list item to <ul>
+
+    addEventListenerToButton(button, pokemon); // Add event listener
+  }
+
   return {
     add: add,
-    getAll: getAll
+    getAll: getAll,
+    addListItem: addListItem, // Make function accessible outside IIFE
   };
 })();
 
 
-
-
-
-//using foreach method for looping over the array with a condition
-pokemonRepository.getAll().forEach(pokemon => {
-  if (pokemon.height > 1.1) {
-    document.write(`${pokemon.name} (height: ${pokemon.height}) - Wow that's big!<br>`);
-  } else {
-    document.write(`${pokemon.name} (height: ${pokemon.height})<br>`);
-  }
+// Call addListItem() inside forEach loop
+pokemonRepository.getAll().forEach((pokemon) => {
+  pokemonRepository.addListItem(pokemon);
 });
 
 
