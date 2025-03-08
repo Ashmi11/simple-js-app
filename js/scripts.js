@@ -71,10 +71,54 @@ let pokemonRepository = (function () {
     });
   }
 
+  function showModal(name, height, imageUrl) {
+    let modal = document.createElement("div");
+    modal.classList.add("modal");
+
+    let modalContent = document.createElement("div");
+    modalContent.classList.add("modal-content");
+
+    let closeButton = document.createElement("span");
+    closeButton.innerHTML = "&times;";
+    closeButton.classList.add("close-button");
+    closeButton.addEventListener("click", function () {
+      modal.remove();
+    });
+
+    let title = document.createElement("h2");
+    title.innerText = name;
+
+    let heightElement = document.createElement("p");
+    heightElement.innerText = `Height: ${height}`;
+
+    let image = document.createElement("img");
+    image.src = imageUrl;
+    image.id = "modal-image";
+
+    modalContent.appendChild(closeButton);
+    modalContent.appendChild(title);
+    modalContent.appendChild(heightElement);
+    modalContent.appendChild(image);
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
+
+    modal.addEventListener("click", function (event) {
+      if (event.target === modal) {
+        modal.remove();
+      }
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        modal.remove();
+      }
+    });
+  }
+
   // Function to log Pokémon details that have been fetched..
   function showDetails(pokemon) {
     loadDetails(pokemon).then(function () {
-      console.log(pokemon);
+      showModal(pokemon.name, pokemon.height, pokemon.imageUrl);
     });
   }
 
@@ -99,4 +143,6 @@ pokemonRepository.loadList().then(function () {
     pokemonRepository.addListItem(pokemon);
   });
 });
+
+
 
