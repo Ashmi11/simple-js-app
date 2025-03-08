@@ -43,3 +43,48 @@ h1 {
     }
 }
 
+
+/* Modal - Hidden by default */
+.modal {
+    display: none; /* Hide modal by default */
+    position: fixed;
+    z-index: 1; /* Ensure it appears on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark background overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal Content Box */
+.modal-content {
+    position: relative; /* Ensures the close button stays inside */
+    background-color: white;  /*Creates a white box in the center.*/
+    padding: 20px;
+    border-radius: 10px;        /*Gives rounded corners for a smoother look.*/
+    width: 300px;
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);   /*Adds a subtle shadow for a pop-out effect.*/
+}
+
+/* Close Button */
+.close-button {
+    /* Styled as a small "X" button in the top-right.*/
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 25px;
+    cursor: pointer;  /* Makes it clickable. */
+    font-weight: bold;
+}
+
+/* Pokemon Image Styling */
+#modal-image {
+    /* Resizes the Pokémon image to fit well in the modal. */
+    width: 100px;
+    height: auto;
+    margin: 10px 0;
+}
