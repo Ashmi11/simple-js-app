@@ -70,7 +70,7 @@ let pokemonRepository = (function () {
       console.error(e);
     });
   }
-
+  // Create a function to show the modal
   function showModal(name, height, imageUrl) {
     let modal = document.createElement("div");
     modal.classList.add("modal");
@@ -78,36 +78,46 @@ let pokemonRepository = (function () {
     let modalContent = document.createElement("div");
     modalContent.classList.add("modal-content");
 
+    // Create Close Button
     let closeButton = document.createElement("span");
-    closeButton.innerHTML = "&times;";
+    closeButton.innerHTML = "&times;";    // '×' symbol
     closeButton.classList.add("close-button");
     closeButton.addEventListener("click", function () {
       modal.remove();
     });
 
+
+    // Create Name Element
     let title = document.createElement("h2");
     title.innerText = name;
 
+    // Create Height Element
     let heightElement = document.createElement("p");
     heightElement.innerText = `Height: ${height}`;
 
+    // Create Image Element
     let image = document.createElement("img");
     image.src = imageUrl;
     image.id = "modal-image";
 
+    // Append elements to modal content
     modalContent.appendChild(closeButton);
     modalContent.appendChild(title);
     modalContent.appendChild(heightElement);
     modalContent.appendChild(image);
     modal.appendChild(modalContent);
+
+    // Append modal to body
     document.body.appendChild(modal);
 
+    // Close modal when clicking outside
     modal.addEventListener("click", function (event) {
       if (event.target === modal) {
         modal.remove();
       }
     });
 
+    // Close modal with Escape key
     document.addEventListener("keydown", function (event) {
       if (event.key === "Escape") {
         modal.remove();
@@ -118,7 +128,7 @@ let pokemonRepository = (function () {
   // Function to log Pokémon details that have been fetched..
   function showDetails(pokemon) {
     loadDetails(pokemon).then(function () {
-      showModal(pokemon.name, pokemon.height, pokemon.imageUrl);
+      showModal(pokemon.name, pokemon.height, pokemon.imageUrl); //Modify showDetails() to open the modal 
     });
   }
 
