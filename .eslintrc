@@ -1,0 +1,24 @@
+{
+    "env": {
+        "es6": true,
+        "browser": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:prettier/recommended"
+    ],
+    "rules": {
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "indent": [
+            "error",
+            2
+        ],
+        "no-unused-vars": [
+            "error"
+        ],
+        "prettier/prettier": "error"
+    }
+}

@@ -1,8 +1,10 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
-    typeof define === 'function' && define.amd ? define(factory) :
-      (factory());
-}(this, (function () {
+  typeof exports === 'object' && typeof module !== 'undefined'
+    ? factory()
+    : typeof define === 'function' && define.amd
+      ? define(factory)
+      : factory();
+})(this, function () {
   'use strict';
 
   /**
@@ -34,9 +36,9 @@
         return reject(
           new TypeError(
             typeof arr +
-            ' ' +
-            arr +
-            ' is not iterable(cannot read property Symbol(Symbol.iterator))'
+              ' ' +
+              arr +
+              ' is not iterable(cannot read property Symbol(Symbol.iterator))'
           )
         );
       }
@@ -79,7 +81,7 @@
    * @constructor
    */
   function AggregateError(errors, message) {
-    this.name = 'AggregateError', this.errors = errors;
+    (this.name = 'AggregateError'), (this.errors = errors);
     this.message = message || '';
   }
   AggregateError.prototype = Error.prototype;
@@ -125,7 +127,7 @@
     return Boolean(x && typeof x.length !== 'undefined');
   }
 
-  function noop() { }
+  function noop() {}
 
   // Polyfill for Function.prototype.bind
   function bind(fn, thisArg) {
@@ -404,5 +406,4 @@
       globalNS.Promise.any = any;
     }
   }
-
-})));
+});

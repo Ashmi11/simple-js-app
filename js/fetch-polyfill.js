@@ -1,8 +1,10 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-    typeof define === 'function' && define.amd ? define(['exports'], factory) :
-      (factory((global.WHATWGFetch = {})));
-}(this, (function (exports) {
+  typeof exports === 'object' && typeof module !== 'undefined'
+    ? factory(exports)
+    : typeof define === 'function' && define.amd
+      ? define(['exports'], factory)
+      : factory((global.WHATWGFetch = {}));
+})(this, function (exports) {
   'use strict';
 
   var support = {
@@ -14,17 +16,17 @@
       (function () {
         try {
           new Blob();
-          return true
+          return true;
         } catch (e) {
-          return false
+          return false;
         }
       })(),
     formData: 'FormData' in self,
-    arrayBuffer: 'ArrayBuffer' in self
+    arrayBuffer: 'ArrayBuffer' in self,
   };
 
   function isDataView(obj) {
-    return obj && DataView.prototype.isPrototypeOf(obj)
+    return obj && DataView.prototype.isPrototypeOf(obj);
   }
 
   if (support.arrayBuffer) {
@@ -37,13 +39,15 @@
       '[object Int32Array]',
       '[object Uint32Array]',
       '[object Float32Array]',
-      '[object Float64Array]'
+      '[object Float64Array]',
     ];
 
     var isArrayBufferView =
       ArrayBuffer.isView ||
       function (obj) {
-        return obj && viewClasses.indexOf(Object.prototype.toString.call(obj)) > -1
+        return (
+          obj && viewClasses.indexOf(Object.prototype.toString.call(obj)) > -1
+        );
       };
   }
 
@@ -52,16 +56,16 @@
       name = String(name);
     }
     if (/[^a-z0-9\-#$%&'*+.^_`|~]/i.test(name)) {
-      throw new TypeError('Invalid character in header field name')
+      throw new TypeError('Invalid character in header field name');
     }
-    return name.toLowerCase()
+    return name.toLowerCase();
   }
 
   function normalizeValue(value) {
     if (typeof value !== 'string') {
       value = String(value);
     }
-    return value
+    return value;
   }
 
   // Build a destructive iterator for the value list
@@ -69,17 +73,17 @@
     var iterator = {
       next: function () {
         var value = items.shift();
-        return { done: value === undefined, value: value }
-      }
+        return { done: value === undefined, value: value };
+      },
     };
 
     if (support.iterable) {
       iterator[Symbol.iterator] = function () {
-        return iterator
+        return iterator;
       };
     }
 
-    return iterator
+    return iterator;
   }
 
   function Headers(headers) {
@@ -113,11 +117,11 @@
 
   Headers.prototype.get = function (name) {
     name = normalizeName(name);
-    return this.has(name) ? this.map[name] : null
+    return this.has(name) ? this.map[name] : null;
   };
 
   Headers.prototype.has = function (name) {
-    return this.map.hasOwnProperty(normalizeName(name))
+    return this.map.hasOwnProperty(normalizeName(name));
   };
 
   Headers.prototype.set = function (name, value) {
@@ -137,7 +141,7 @@
     this.forEach(function (value, name) {
       items.push(name);
     });
-    return iteratorFor(items)
+    return iteratorFor(items);
   };
 
   Headers.prototype.values = function () {
@@ -145,7 +149,7 @@
     this.forEach(function (value) {
       items.push(value);
     });
-    return iteratorFor(items)
+    return iteratorFor(items);
   };
 
   Headers.prototype.entries = function () {
@@ -153,7 +157,7 @@
     this.forEach(function (value, name) {
       items.push([name, value]);
     });
-    return iteratorFor(items)
+    return iteratorFor(items);
   };
 
   if (support.iterable) {
@@ -162,7 +166,7 @@
 
   function consumed(body) {
     if (body.bodyUsed) {
-      return Promise.reject(new TypeError('Already read'))
+      return Promise.reject(new TypeError('Already read'));
     }
     body.bodyUsed = true;
   }
@@ -175,21 +179,21 @@
       reader.onerror = function () {
         reject(reader.error);
       };
-    })
+    });
   }
 
   function readBlobAsArrayBuffer(blob) {
     var reader = new FileReader();
     var promise = fileReaderReady(reader);
     reader.readAsArrayBuffer(blob);
-    return promise
+    return promise;
   }
 
   function readBlobAsText(blob) {
     var reader = new FileReader();
     var promise = fileReaderReady(reader);
     reader.readAsText(blob);
-    return promise
+    return promise;
   }
 
   function readArrayBufferAsText(buf) {
@@ -199,16 +203,16 @@
     for (var i = 0; i < view.length; i++) {
       chars[i] = String.fromCharCode(view[i]);
     }
-    return chars.join('')
+    return chars.join('');
   }
 
   function bufferClone(buf) {
     if (buf.slice) {
-      return buf.slice(0)
+      return buf.slice(0);
     } else {
       var view = new Uint8Array(buf.byteLength);
       view.set(new Uint8Array(buf));
-      return view.buffer
+      return view.buffer;
     }
   }
 
@@ -225,13 +229,19 @@
         this._bodyBlob = body;
       } else if (support.formData && FormData.prototype.isPrototypeOf(body)) {
         this._bodyFormData = body;
-      } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
+      } else if (
+        support.searchParams &&
+        URLSearchParams.prototype.isPrototypeOf(body)
+      ) {
         this._bodyText = body.toString();
       } else if (support.arrayBuffer && support.blob && isDataView(body)) {
         this._bodyArrayBuffer = bufferClone(body.buffer);
         // IE 10-11 can't handle a DataView body.
         this._bodyInit = new Blob([this._bodyArrayBuffer]);
-      } else if (support.arrayBuffer && (ArrayBuffer.prototype.isPrototypeOf(body) || isArrayBufferView(body))) {
+      } else if (
+        support.arrayBuffer &&
+        (ArrayBuffer.prototype.isPrototypeOf(body) || isArrayBufferView(body))
+      ) {
         this._bodyArrayBuffer = bufferClone(body);
       } else {
         this._bodyText = body = Object.prototype.toString.call(body);
@@ -242,8 +252,14 @@
           this.headers.set('content-type', 'text/plain;charset=UTF-8');
         } else if (this._bodyBlob && this._bodyBlob.type) {
           this.headers.set('content-type', this._bodyBlob.type);
-        } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
-          this.headers.set('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+        } else if (
+          support.searchParams &&
+          URLSearchParams.prototype.isPrototypeOf(body)
+        ) {
+          this.headers.set(
+            'content-type',
+            'application/x-www-form-urlencoded;charset=UTF-8'
+          );
         }
       }
     };
@@ -252,25 +268,25 @@
       this.blob = function () {
         var rejected = consumed(this);
         if (rejected) {
-          return rejected
+          return rejected;
         }
 
         if (this._bodyBlob) {
-          return Promise.resolve(this._bodyBlob)
+          return Promise.resolve(this._bodyBlob);
         } else if (this._bodyArrayBuffer) {
-          return Promise.resolve(new Blob([this._bodyArrayBuffer]))
+          return Promise.resolve(new Blob([this._bodyArrayBuffer]));
         } else if (this._bodyFormData) {
-          throw new Error('could not read FormData body as blob')
+          throw new Error('could not read FormData body as blob');
         } else {
-          return Promise.resolve(new Blob([this._bodyText]))
+          return Promise.resolve(new Blob([this._bodyText]));
         }
       };
 
       this.arrayBuffer = function () {
         if (this._bodyArrayBuffer) {
-          return consumed(this) || Promise.resolve(this._bodyArrayBuffer)
+          return consumed(this) || Promise.resolve(this._bodyArrayBuffer);
         } else {
-          return this.blob().then(readBlobAsArrayBuffer)
+          return this.blob().then(readBlobAsArrayBuffer);
         }
       };
     }
@@ -278,31 +294,31 @@
     this.text = function () {
       var rejected = consumed(this);
       if (rejected) {
-        return rejected
+        return rejected;
       }
 
       if (this._bodyBlob) {
-        return readBlobAsText(this._bodyBlob)
+        return readBlobAsText(this._bodyBlob);
       } else if (this._bodyArrayBuffer) {
-        return Promise.resolve(readArrayBufferAsText(this._bodyArrayBuffer))
+        return Promise.resolve(readArrayBufferAsText(this._bodyArrayBuffer));
       } else if (this._bodyFormData) {
-        throw new Error('could not read FormData body as text')
+        throw new Error('could not read FormData body as text');
       } else {
-        return Promise.resolve(this._bodyText)
+        return Promise.resolve(this._bodyText);
       }
     };
 
     if (support.formData) {
       this.formData = function () {
-        return this.text().then(decode)
+        return this.text().then(decode);
       };
     }
 
     this.json = function () {
-      return this.text().then(JSON.parse)
+      return this.text().then(JSON.parse);
     };
 
-    return this
+    return this;
   }
 
   // HTTP methods whose capitalization should be normalized
@@ -310,7 +326,7 @@
 
   function normalizeMethod(method) {
     var upcased = method.toUpperCase();
-    return methods.indexOf(upcased) > -1 ? upcased : method
+    return methods.indexOf(upcased) > -1 ? upcased : method;
   }
 
   function Request(input, options) {
@@ -319,7 +335,7 @@
 
     if (input instanceof Request) {
       if (input.bodyUsed) {
-        throw new TypeError('Already read')
+        throw new TypeError('Already read');
       }
       this.url = input.url;
       this.credentials = input.credentials;
@@ -347,13 +363,13 @@
     this.referrer = null;
 
     if ((this.method === 'GET' || this.method === 'HEAD') && body) {
-      throw new TypeError('Body not allowed for GET or HEAD requests')
+      throw new TypeError('Body not allowed for GET or HEAD requests');
     }
     this._initBody(body);
   }
 
   Request.prototype.clone = function () {
-    return new Request(this, { body: this._bodyInit })
+    return new Request(this, { body: this._bodyInit });
   };
 
   function decode(body) {
@@ -369,7 +385,7 @@
           form.append(decodeURIComponent(name), decodeURIComponent(value));
         }
       });
-    return form
+    return form;
   }
 
   function parseHeaders(rawHeaders) {
@@ -385,7 +401,7 @@
         headers.append(key, value);
       }
     });
-    return headers
+    return headers;
   }
 
   Body.call(Request.prototype);
@@ -411,24 +427,24 @@
       status: this.status,
       statusText: this.statusText,
       headers: new Headers(this.headers),
-      url: this.url
-    })
+      url: this.url,
+    });
   };
 
   Response.error = function () {
     var response = new Response(null, { status: 0, statusText: '' });
     response.type = 'error';
-    return response
+    return response;
   };
 
   var redirectStatuses = [301, 302, 303, 307, 308];
 
   Response.redirect = function (url, status) {
     if (redirectStatuses.indexOf(status) === -1) {
-      throw new RangeError('Invalid status code')
+      throw new RangeError('Invalid status code');
     }
 
-    return new Response(null, { status: status, headers: { location: url } })
+    return new Response(null, { status: status, headers: { location: url } });
   };
 
   exports.DOMException = self.DOMException;
@@ -450,7 +466,7 @@
       var request = new Request(input, init);
 
       if (request.signal && request.signal.aborted) {
-        return reject(new exports.DOMException('Aborted', 'AbortError'))
+        return reject(new exports.DOMException('Aborted', 'AbortError'));
       }
 
       var xhr = new XMLHttpRequest();
@@ -463,9 +479,12 @@
         var options = {
           status: xhr.status,
           statusText: xhr.statusText,
-          headers: parseHeaders(xhr.getAllResponseHeaders() || '')
+          headers: parseHeaders(xhr.getAllResponseHeaders() || ''),
         };
-        options.url = 'responseURL' in xhr ? xhr.responseURL : options.headers.get('X-Request-URL');
+        options.url =
+          'responseURL' in xhr
+            ? xhr.responseURL
+            : options.headers.get('X-Request-URL');
         var body = 'response' in xhr ? xhr.response : xhr.responseText;
         resolve(new Response(body, options));
       };
@@ -509,8 +528,10 @@
         };
       }
 
-      xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit);
-    })
+      xhr.send(
+        typeof request._bodyInit === 'undefined' ? null : request._bodyInit
+      );
+    });
   }
 
   fetch.polyfill = true;
@@ -528,5 +549,4 @@
   exports.fetch = fetch;
 
   Object.defineProperty(exports, '__esModule', { value: true });
-
-})));
+});
