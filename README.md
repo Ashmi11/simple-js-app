@@ -33,16 +33,19 @@ git clone https://github.com/Ashmi11/simple-js-app.git
 Simply open the index.html file in any web browser.
 
 🔧 Project Dependencies
-🖥 Technologies Used
-Technology	Version	Description
-JavaScript (ES6/ES2015)	Latest	Core logic and API interaction
-HTML5	Latest	Structure of the web app
-CSS3	Latest	Styling and layout
-Bootstrap 4.3.1	4.3.1	Prebuilt UI components (Navbar, Modal, Buttons)
-jQuery	3.3.1	Required for Bootstrap 4 functionality
-PokéAPI	-	External API for Pokémon data
-Promise Polyfill	-	Ensures ES6 Promises work in older browsers
-Fetch Polyfill	-	Ensures fetch() API works in older browsers
+## 🖥 Technologies Used
+
+| **Technology**      | **Version** | **Description** |
+|--------------------|------------|----------------|
+| JavaScript (ES6/ES2015) | Latest     | Core logic and API interaction |
+| HTML5             | Latest     | Structure of the web app |
+| CSS3              | Latest     | Styling and layout |
+| Bootstrap 4.3.1   | 4.3.1      | Prebuilt UI components (Navbar, Modal, Buttons) |
+| jQuery            | 3.3.1      | Required for Bootstrap 4 functionality |
+| PokéAPI          | -          | External API for Pokémon data |
+| Promise Polyfill  | -          | Ensures ES6 Promises work in older browsers |
+| Fetch Polyfill    | -          | Ensures `fetch()` API works in older browsers |
+
 
 🔍 JavaScript Version:-This project is written in ES6 (ECMAScript 2015+)
 
@@ -54,6 +57,5 @@ Ensures proper indentation and no unused variables.
  API Used
 This app fetches Pokémon data from:
 🔗 PokéAPI
-
 Example API Request:
 https://pokeapi.co/api/v2/pokemon/?limit=150
