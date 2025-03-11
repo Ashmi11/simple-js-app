@@ -25,14 +25,15 @@ This **Pokédex application** is a simple web app built using **HTML, CSS, JavaS
 
 ## 🛠 Getting Started  
 
-### 1️⃣ Clone the Repository  
+ 1️⃣ Clone the Repository  
 To get a local copy of the project, run:  
 git clone https://github.com/Ashmi11/simple-js-app.git 
 
 2️⃣ Open index.html in a Browser
 Simply open the index.html file in any web browser.
 
-🔧 Project Dependencies
+
+### 🔧 Project Dependencies
 ## 🖥 Technologies Used
 
 | **Technology**      | **Version** | **Description** |
@@ -54,8 +55,8 @@ Uses Prettier for consistent formatting.
 Ensures proper indentation and no unused variables.
 
 
- API Used
+ ### API Used
 This app fetches Pokémon data from:
-🔗 PokéAPI
+🔗 PokéAPI  ..        
 Example API Request:
 https://pokeapi.co/api/v2/pokemon/?limit=150
