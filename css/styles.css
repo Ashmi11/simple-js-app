@@ -1,22 +1,27 @@
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #f8f9fa;
-    padding: 20px;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #ebe7a1;
+  padding: 20px;
+}
+.navbar {
+  background-color: #ebe7a1 !important;
 }
 
-h1 {
-    color: #333;
+.list-group-item {
+  text-align: center;
+  font-weight: bold;
+  background-color: #c07878;
+  border: 1px solid #ddd;
+  min-width: 200px; /* Ensures list items have equal width */
 }
 
-.pokemon-list {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.list-group-item button {
+  background-color: #ebe7a1; /* Pokémon yellow */
+  border: none;
+  color: black;
 }
 
-.pokemon-list li {
-    margin: 10px;
+.list-group-item button:hover {
+  background-color: #ff9900;
 }
