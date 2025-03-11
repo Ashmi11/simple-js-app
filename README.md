@@ -27,8 +27,6 @@ This **Pokédex application** is a simple web app built using **HTML, CSS, JavaS
 
 ### 1️⃣ Clone the Repository  
 To get a local copy of the project, run:  
-
-```sh
 git clone https://github.com/Ashmi11/simple-js-app.git 
 
 2️⃣ Open index.html in a Browser
